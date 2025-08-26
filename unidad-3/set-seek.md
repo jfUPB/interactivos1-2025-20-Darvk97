@@ -5,14 +5,14 @@
 
 No hay evidencias de esta actividad. Esta nota la deja el profesor
 
-Actividad 1:
-R//= 
-from microbit import *
-import utime
+# Actividad 1:
 
-display.clear()
+    from microbit import *
+    import utime
 
-class Semaforo:
+    display.clear()
+
+    class Semaforo:
     def __init__(self, x, y, tr, ty, tg):
         self.x = x               
         self.y = y                
@@ -46,14 +46,14 @@ class Semaforo:
                 self.startTime = now
                 self.state = 'WaitInRed'
                 
-semaforo1 = Semaforo(0, 0, 5000, 2000, 3000)
-semaforo2 = Semaforo(2, 0, 3000, 1000, 2000)
-semaforo3 = Semaforo(4, 0, 4000, 3000, 2000)
+    semaforo1 = Semaforo(0, 0, 5000, 2000, 3000)
+    semaforo2 = Semaforo(2, 0, 3000, 1000, 2000)
+    semaforo3 = Semaforo(4, 0, 4000, 3000, 2000)
 
-while True:
-    semaforo1.update()
-    semaforo2.update()
-    semaforo3.update()
+    while True:
+        semaforo1.update()
+        semaforo2.update()
+        semaforo3.update()
 
 ¿Qué ventajas tiene usar una clase (class) en este caso para representar un semáforo?
 R//: organiza mejor el codigo, evita la repeticion de instrucciones y puede crear semaforos nuevos e independientes
@@ -61,15 +61,16 @@ R//: organiza mejor el codigo, evita la repeticion de instrucciones y puede crea
 ¿Puedes ver cómo la técnica de programación con máquinas de estado y el uso de funciona no bloqueantes te permite que varios semáforos funcionen al mismo tiempo?
 R//: si, ya que permite que se actualicen sin alterarse entre si haciendo que puedan funcionar al mismo tiempo
 
-Actividad 2: 
 
-# Imports go at the top
-from microbit import *
-import utime
+# Actividad 2: 
 
-display.clear()
+    Imports go at the top
+    from microbit import *
+    import utime
 
-class BombTask:
+    display.clear()
+
+    class BombTask:
     def __init__(self):
         self.PASSWORD = ['A','B','A']
         self.key = ['']*len(self.PASSWORD)
@@ -133,9 +134,10 @@ class BombTask:
                 self.startTime = utime.ticks_ms()
                 self.state = 'CONFIG'
 
-bombTask = BombTask()
+        bombTask = BombTask()
 
-while True:
-    bombTask.update()
+        while True:
+        bombTask.update()
 
 en el programa funciona correcto pero el codigo no me funcionó en unas lineas y revisandolo con el de la actividad lo pude corregir
+
