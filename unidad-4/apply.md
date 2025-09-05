@@ -89,10 +89,10 @@ sketch.js:
     } catch (error) {
       console.error('Error al conectar micro:bit:', error);
       alert("No se pudo conectar al micro:bit: " + error.message);
-    }
-  }
+        }
+      }
   
-  async function readLoop() {
+      async function readLoop() {
     while (port.readable) {
       reader = port.readable.getReader();
 
@@ -109,13 +109,13 @@ sketch.js:
             }
           }
         }
-      } catch (error) {
-        console.error(error);
-      } finally {
-        reader.releaseLock();
+          } catch (error) {
+            console.error(error);
+          } finally {
+            reader.releaseLock();
+          }
+        }
       }
-    }
-  }
 
   function parseLine(line) {
     const parts = line.split(',');
@@ -158,5 +158,6 @@ index.html:
   <button id="connectButton">Conectar micro:bit</button>
 </body>
 </html>
+
 
 
