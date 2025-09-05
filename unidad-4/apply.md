@@ -117,47 +117,48 @@ sketch.js:
         }
       }
 
-  function parseLine(line) {
-    const parts = line.split(',');
-    if (parts.length === 4) {
-      xValue = int(parts[0]);
-      yValue = int(parts[1]);
-      aState = parts[2].toLowerCase() === 'true' || parts[2] === '1';
-      bState = parts[3].toLowerCase() === 'true' || parts[3] === '1';
-    }
-  }
+      function parseLine(line) {
+        const parts = line.split(',');
+        if (parts.length === 4) {
+          xValue = int(parts[0]);
+          yValue = int(parts[1]);
+          aState = parts[2].toLowerCase() === 'true' || parts[2] === '1';
+          bState = parts[3].toLowerCase() === 'true' || parts[3] === '1';
+        }
+      }
 
 
 index.html:
 
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <title>P_2_1_2_01 + micro:bit</title>
-  <script src="https://cdn.jsdelivr.net/npm/p5@1.6.0/lib/p5.min.js"></script>
-  <script src="sketch.js"></script>
-  <style>
-    body {
-      margin: 0;
-      background: #fff;
-      overflow: hidden;
-    }
-    #connectButton {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      padding: 8px 12px;
-      font-size: 16px;
-      cursor: pointer;
-      z-index: 10;
-    }
-  </style>
-</head>
-<body>
-  <button id="connectButton">Conectar micro:bit</button>
-</body>
-</html>
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+      <meta charset="UTF-8" />
+      <title>P_2_1_2_01 + micro:bit</title>
+      <script src="https://cdn.jsdelivr.net/npm/p5@1.6.0/lib/p5.min.js"></script>
+      <script src="sketch.js"></script>
+      <style>
+        body {
+          margin: 0;
+          background: #fff;
+          overflow: hidden;
+        }
+        #connectButton {
+          position: absolute;
+          top: 10px;
+          left: 10px;
+          padding: 8px 12px;
+          font-size: 16px;
+          cursor: pointer;
+          z-index: 10;
+        }
+      </style>
+    </head>
+    <body>
+      <button id="connectButton">Conectar micro:bit</button>
+    </body>
+    </html>
+
 
 
 
