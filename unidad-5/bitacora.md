@@ -27,7 +27,7 @@ R//: la ventaja es que los datos ocupan menos espacio y se transmiten más rápi
 
 4. En el código mostrado, se usa la línea data = struct.pack('>2h2B', xValue, yValue, int(aState), int(bState)), lo que significa que se están enviando 6 bytes por cada mensaje. El formato '>2h2B' indica lo siguiente:
 
-- >: orden de bytes big-endian (de mayor a menor).
+- > : orden de bytes big-endian (de mayor a menor).
 
 - 2h: dos valores tipo short (2 bytes cada uno) para xValue y yValue.
 
@@ -52,3 +52,4 @@ Cada byte en hexadecimal en la imagen representa parte de estos valores, enviado
 6. En este código, se están enviando los mismos datos dos veces: primero en formato binario usando struct.pack(), y luego en formato ASCII como texto legible con format(). La principal diferencia es que el binario ocupa menos bytes (6 bytes por mensaje), es más rápido de enviar y procesar, pero no es legible a simple vista. En cambio, el formato ASCII es fácil de leer y depurar, ya que muestra los números claramente separados por comas, pero ocupa más espacio (más bytes por cada mensaje) y puede ser más lento en transmisión. El binario es mejor para aplicaciones que requieren velocidad y eficiencia, mientras que el ASCII es útil para pruebas, monitoreo o debugging.
 
 # Actividad 3
+
