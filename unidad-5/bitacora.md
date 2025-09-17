@@ -53,3 +53,19 @@ Cada byte en hexadecimal en la imagen representa parte de estos valores, enviado
 
 # Actividad 3
 
+1. - En la unidad anterior, los datos se enviaban en formato ASCII, donde cada valor tenía una longitud variable y se separaban con caracteres delimitadores (como comas) y un salto de línea para indicar el final del paquete. Esto era necesario para que el receptor pudiera identificar dónde terminaba un dato y comenzaba otro, y cuándo terminaba un mensaje completo.
+
+- Ahora al usar un formato binario con un tamaño fijo de paquete el de 6 bytes en este caso, no es necesario usar delimitadores ni saltos de línea porque el receptor sabe exactamente cuántos bytes esperar para cada mensaje. Así el fin del paquete queda implícito en la longitud fija, simplificando y haciendo más eficiente la transmisión.
+
+2. En la unidad anterior, los datos se recibían como texto ASCII, por lo que era necesario leer la línea completa (readUntil("\n")) y separarla por comas (split(",")) y convertir cada valor a su tipo correspondiente. Ahora los datos se reciben en formato binario con un tamaño fijo (6 bytes), por eso se usa readBytes(6) y se interpretan directamente con DataView, sin necesidad de separar ni convertir desde texto, esto hace que el nuevo código sea más eficiente y rápido, pero también más estricto, ya que depende de que siempre lleguen exactamente 6 bytes por paquete.
+
+3. Al ejecutar varias veces el código de p5.js y observar la consola, en algunos momentos se ven valores extraños o incoherentes para microBitX, microBitY o los estados de los botones. Esto sucede porque el código está leyendo 6 bytes fijos entonces los valores no coinciden con los que realmente envió el micro:bit. Es un error de sincronización porque los datos binarios se interpretan fuera de su estructura original.
+
+4. Al analizar y ejecutar el nuevo código, se observa que ahora ya no aparecen errores de sincronización en la consola. Los valores de microBitX, microBitY, microBitAState y microBitBState se imprimen correctamente y de forma estable.
+
+5. -En el micro:bit se agrega un byte de encabezado (0xAA) al paquete y un checksum para verificar que los datos lleguen completos y sin errores. En el código de p5.js, se implementa un buffer de recepción que busca ese encabezado, verifica el checksum y extrae los valores si el paquete es válido.
+   
+-Esto evita los errores de sincronización que ocurrían antes. En la consola del editor de p5.js ahora ya no se muestran errores, y los datos se reciben de forma estable y continua, lo que demuestra que la comunicación binaria estructurada es mucho más robusta.
+
+# Actividad 4
+
