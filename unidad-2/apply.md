@@ -52,12 +52,12 @@ En STATE_EXPLODED:
 from microbit import *
 import utime
 
-# Estados
+Estados
 STATE_CONFIG = 0
 STATE_ARMED = 1
 STATE_EXPLODED = 2
 
-# Variables
+Variables
 current_state = STATE_CONFIG
 time_left = 20   # tiempo inicial
 start_time = utime.ticks_ms()
@@ -187,3 +187,4 @@ Videojuegos simples en micro:bit (ej. un juego de plataformas con estados: menú
 Sistemas interactivos como luces de navidad con distintos modos.
 Escape rooms digitales donde distintos sensores cambian el estado del juego.
 Robótica (ej. robot con estados: avanzar, girar, detenerse).
+
