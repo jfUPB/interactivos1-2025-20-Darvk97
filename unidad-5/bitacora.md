@@ -72,14 +72,15 @@ Cada byte en hexadecimal en la imagen representa parte de estos valores, enviado
 # Autoevaluacion 
 
 1. Profundidad de la Indagación:
-R//: 4.5, ya que se responde de manera abierta las pregutas planteadas y se responden todas de manera general.
+R//: 4.5, ya que se responde de manera abierta las pregutas planteadas y se responden todas de manera general, a exepcion de la actividad 4 que no se realizo.
 
 2. Calidad de la Experimentación
 R//: 4.0, se comprobaron las hipotesis y se detectaron los errores y funciones al ejecutar el codigo
 
 3. Análisis y Reflexión
-R//: 4.2, esta la investigacion conlas capturas de la terminal y su explicacion y los errores a mejorar
+R//: 4.2, esta la investigacion conlas capturas de la terminal y su explicacion y los errores a mejorar de la mayoria de las actividades
 
 4. Apropiación y Articulación de Conceptos
-R//: 4.5, se muestra de forma clara la informacion, explicando en mis palabras todo lo planteado en esta unidad
+R//: 4.5, se muestra de forma clara la informacion, explicando en mis palabras todo lo planteado en esta unidad, teniendo casi todo al dia
+
 
