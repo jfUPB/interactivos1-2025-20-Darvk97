@@ -69,3 +69,16 @@ Cada byte en hexadecimal en la imagen representa parte de estos valores, enviado
 
 # Actividad 4
 
+# Autoevaluacion 
+
+1. Profundidad de la Indagación:
+R//:
+
+2. Calidad de la Experimentación
+R//:
+
+3. Análisis y Reflexión
+R//:
+
+4. Apropiación y Articulación de Conceptos
+R//: 
