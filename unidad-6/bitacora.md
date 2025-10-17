@@ -287,9 +287,12 @@ function drawFromOtherUser(data) {
   line(data.x1, data.y1, data.x2, data.y2);
 }
 
+
+
 - Idea: crear una experiencia colaborativa en la que dos personas dibujan en un mismo lienzo compartido en tiempo real.
 - Servidor: maneja eventos de conexión, dibujo y desconexión.
 - Clientes: envían coordenadas de líneas y las reciben del otro.
 - Resultado: ambos usuarios pueden ver y complementar el dibujo del otro sin retraso perceptible.
 - Aprendizaje: Socket.IO simplifica la sincronización en tiempo real. Se entiende cómo un evento en un cliente puede reflejarse instantáneamente en otro.
+
 
