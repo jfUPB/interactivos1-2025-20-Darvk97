@@ -1,7 +1,7 @@
 
 # Evidencias de la unidad 6
 
-## Actividad 2 ##
+# Actividad 2 #
 
 1. Piensa en cómo te conectas a Internet en casa o en la Universidad. ¿Usas Wi-Fi? ¿Un cable de red? Eso es simplemente tu “rampa de acceso” a la gran red de carreteras. ¿Qué pasaría si esa rampa se corta? Anota tus ideas.
 R//: Si se corta la rampa de acceso en este caso Wi-Fi, no habría conexión con el Internet. Sería como estar en una carretera sin salida, osea el navegador no podría comunicarse con ningún servidor.
@@ -61,7 +61,7 @@ R//: HTTP es comunicación “pregunta-respuesta”, WebSocket es una conexión 
 se usa en chats, videojuegos en línea, etc.
 
 
-## Actividad 3 ##
+# Actividad 3 #
 
 4. Intenta acceder a http://localhost:3000/page1. ¿Funciona?
 R//: http://localhost:3000/page1 = No funciona
@@ -112,7 +112,7 @@ R//: - El servidor muestra “Server listening on port 3001”.
 - La variable port define en qué “puerta” escucha el servidor.
 
 
-## Actividad 4 ##
+# Actividad 4 #
 
 1. Abre page2.html en tu navegador (con el servidor corriendo).
 
@@ -163,12 +163,12 @@ background(map(distancia, 0, 1000, 255, 0));
 A medida que las ventanas están más cerca, el fondo se aclara, representa visualmente la cercanía entre los usuarios.
 
 
-## Actividad 5 ##
+# Actividad 5 #
 
 es una aplicación interactiva llamada "dualvinci", donde dos usuarios dibujan simultáneamente sobre un mismo lienzo virtual.
 Cuando un usuario dibuja en su ventana (page1 o page2), el trazo aparece en tiempo real en la otra.
 
-# server.js #
+## server.js ##
 
 // =============================
 // SERVIDOR NODE + SOCKET.IO
@@ -206,7 +206,7 @@ http.listen(port, () => {
 });
 
 
-# public/page1.html #
+## public/page1.html ##
 
 <!DOCTYPE html>
 <html lang="es">
@@ -221,7 +221,7 @@ http.listen(port, () => {
 </html>
 
 
-# public/page2.html #
+## public/page2.html ##
 
 <!DOCTYPE html>
 <html lang="es">
@@ -236,7 +236,7 @@ http.listen(port, () => {
 </html>
 
 
-# public/page1.js #
+## public/page1.js ##
 
 let socket;
 let drawing = false;
@@ -263,7 +263,7 @@ function drawFromOtherUser(data) {
 }
 
 
-# public/page2.js #
+## public/page2.js ##
 
 let socket;
 
@@ -292,3 +292,4 @@ function drawFromOtherUser(data) {
 - Clientes: envían coordenadas de líneas y las reciben del otro.
 - Resultado: ambos usuarios pueden ver y complementar el dibujo del otro sin retraso perceptible.
 - Aprendizaje: Socket.IO simplifica la sincronización en tiempo real. Se entiende cómo un evento en un cliente puede reflejarse instantáneamente en otro.
+
