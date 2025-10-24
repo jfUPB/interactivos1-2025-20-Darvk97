@@ -92,137 +92,188 @@ El usuario toca (x=120, y=300) → el móvil envía las coordenadas → el servi
 ## server.js ##
 
 // ==========================
-// Servidor Node.js con Socket.IO
+// server.js
+// Sincroniza móvil ↔ escritorio
 // ==========================
-const express = require("express");
-const http = require("http");
-const socketIO = require("socket.io");
+const express = require('express');
+const http = require('http');
+const socketIO = require('socket.io');
+const path = require('path');
 
 const app = express();
 const server = http.createServer(app);
 const io = socketIO(server);
 
-// Servir los archivos de la carpeta public
-app.use(express.static("public"));
+// Servir archivos estáticos desde "public"
+app.use(express.static(path.join(__dirname, 'public')));
 
-io.on("connection", (socket) => {
-  console.log(" Nuevo cliente conectado:", socket.id);
-
-  // Recibe coordenadas táctiles desde el móvil
-  socket.on("touch", (data) => {
-    console.log(" Coordenadas recibidas:", data);
-    // Reenvía a todos los demás clientes (como el escritorio)
-    socket.broadcast.emit("touch", data);
-  });
-
-  socket.on("disconnect", () => {
-    console.log(" Cliente desconectado:", socket.id);
-  });
+// Rutas para desktop y móvil
+app.get('/desktop', (req, res) => {
+res.sendFile(path.join(__dirname, 'public/desktop.html'));
 });
 
-// Inicia el servidor
+app.get('/mobile', (req, res) => {
+res.sendFile(path.join(__dirname, 'public/mobile.html'));
+});
+
+// --- Conexión con socket.io ---
+io.on('connection', (socket) => {
+console.log('Nuevo cliente conectado:', socket.id);
+
+  // Recibir datos de toque desde el móvil y reenviar al escritorio
+socket.on('touch', (data) => {
+    console.log('Datos recibidos del móvil:', data);
+    io.emit('touch', data); // Reenvía el toque a TODOS los clientes conectados
+});
+
+socket.on('disconnect', () => {
+    console.log('Cliente desconectado:', socket.id);
+});
+});
+
+// Iniciar servidor
+const PORT = 3000;
+server.listen(PORT, () => {
+console.log(`Servidor corriendo en: http://localhost:${PORT}`);
+});
+
 const PORT = 3000;
 server.listen(PORT, () => {
   console.log(` Servidor escuchando en http://localhost:${PORT}`);
 });
 
+## public/mobile/Index.html ##
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Móvil - Control táctil</title>
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.min.js"></script>
+    <style>
+    body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #111;
+        color: #fff;
+        text-align: center;
+        font-family: sans-serif;
+}
+    #info {
+        position: absolute;
+        width: 100%;
+        top: 20px;
+        font-size: 18px;
+}
+    </style>
+    </head>
+    <body>
+    <div id="info">Toca la pantalla para mover el círculo </div>
+    <script src="sketch.js"></script>
+    </body>
+</html>
 
 ## public/mobile/sketch.js ##
 
 // ==========================
-// Cliente móvil: Envío de toques
+// Cliente móvil: Envío de toques al escritorio
 // ==========================
 let socket;
-let lastTouchX = 0;
-let lastTouchY = 0;
-let threshold = 5;
+let img;
+
+function preload() {
+  // Carga una imagen de fondo opcional (puedes quitarla si no la necesitas)
+  img = loadImage('WhatsApp Image 2025-10-21 at 6.57.07 PM.jpeg');
+}
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  background(30);
+  background(0);
   textAlign(CENTER, CENTER);
-  textSize(24);
   fill(255);
-  text(" Toca y mueve el dedo ", width / 2, height / 2);
+  textSize(22);
+  text("Toca y mueve el dedo ", width / 2, height / 2);
 
-  // Conectar al servidor
-  socket = io();
+  // Conexión con el servidor
+  socket = io.connect();
 }
 
 function touchMoved() {
-  // Envía datos solo si el movimiento supera el threshold
-  if (dist(touchX, touchY, lastTouchX, lastTouchY) > threshold) {
-    let touchData = {
-      x: touchX / width,
-      y: touchY / height,
-    };
-    socket.emit("touch", touchData);
-    lastTouchX = touchX;
-    lastTouchY = touchY;
-  }
-  return false;
+  // Normalizamos las coordenadas (0–1) para adaptarlas al tamaño del escritorio
+  let touchData = {
+    x: mouseX / width,
+    y: mouseY / height
+  };
+
+  // Enviar las coordenadas al servidor
+  socket.emit("touch", touchData);
+
+  // Mostrar una pequeña estela local (efecto visual)
+  noStroke();
+  fill(random(200, 255), random(100, 255), random(200, 255), 150);
+  ellipse(mouseX, mouseY, 25, 25);
+
+  return false; // Previene scroll en móvil
 }
 
-function draw() {
-  // Visualización ligera al tocar
-  noStroke();
-  fill(lerpColor(color("#ff0080"), color("#00c3ff"), frameCount % 60 / 60), 80);
-  ellipse(mouseX, mouseY, 30);
+## public/desktop/index.html ##
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Escritorio - Visualización</title>
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/addons/p5.sound.min.js"></script>
+    <style>
+    
+    body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #000;
+        color: #fff;
+        font-family: sans-serif;
 }
+    #info {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        font-size: 16px;
+}
+    </style>
+</head>
+<body>
+    <div id="info">Círculo controlado desde el móvil </div>
+    <script src="sketch.js"></script>
+</body>
+</html>
 
 
 ## public/desktop/sketch.js ##
 
-// ==========================
-// Cliente escritorio: Visualización musical reactiva
-// ==========================
-let socket;
-let circles = [];
-let song;
-let fft;
-
-function preload() {
-  // Puedes reemplazar esta URL por cualquier canción libre
-  song = loadSound("https://cdn.pixabay.com/audio/2023/03/10/audio_5f4b2e8bba.mp3");
-}
-
-function setup() {
-  createCanvas(windowWidth, windowHeight);
-  colorMode(HSB, 360, 100, 100);
-  noStroke();
-  socket = io();
-
-  fft = new p5.FFT();
-  song.loop();
-
-  // Recibir datos del móvil
-  socket.on("touch", (data) => {
-    let x = data.x * width;
-    let y = data.y * height;
-    circles.push(new Circle(x, y));
-  });
-}
-
-function draw() {
-  background(0, 0.1);
   let spectrum = fft.analyze();
   let bass = fft.getEnergy("bass");
-  let colorHue = map(bass, 0, 255, 180, 360);
 
-  for (let c of circles) {
-    c.update();
-    c.show(colorHue);
+  // Cambia el color del tint según la música
+  let brillo = map(bass, 0, 255, 50, 255);
+
+  // Dibujar todas las posiciones recibidas del móvil
+  for (let p of puntos) {
+    push();
+    tint(brillo, 255, 255, 200); // cambia la intensidad con el bajo
+    image(gifImg, p.x - gifImg.width / 4, p.y - gifImg.height / 4, 100, 100);
+    pop();
   }
 
-  // Borra círculos viejos
-  circles = circles.filter(c => !c.isDead());
-}
-
-// Clase círculo reactivo
-class Circle {
-  constructor(x, y) {
-    this.x = x;
-    this.y = y;
+  // Eliminar puntos viejos (para que desaparezcan)
+  puntos = puntos.filter(p => millis() - p.tiempo < 2000);
+}.y = y;
     this.r = 20;
     this.alpha = 255;
   }
@@ -273,3 +324,4 @@ Representé el flujo de datos entre móvil, servidor y escritorio con claridad y
 
 - Actividad 05:
 Diseñé e implementé una aplicación interactiva funcional y creativa que conecta móvil y escritorio con éxito.
+
