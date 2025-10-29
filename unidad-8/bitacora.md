@@ -19,10 +19,13 @@ R//: - PC: muestra las visuales y como se vera todo con las particulas, el movim
 6. Haz un diagrama que explique cómo se comunicarán los diferentes componentes del sistema
 R//:
 
-Móvil con sensores de movimiento
-        ↓ datos de inclinación
-     (Socket o Bluetooth)
-        ↓
-PC con p5.js / servidor Node.js
-        ↑
-Micro:bit (botones A y B)
+
+        Móvil con sensores de movimiento
+                ↓
+           datos de inclinación
+           (Socket o Bluetooth)
+                ↓
+              PC con p5.js / servidor Node.js
+                ↑
+        Micro:bit (botones A y B)
+
