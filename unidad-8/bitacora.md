@@ -35,3 +35,10 @@ R//:
         Micro:bit (botones A y B)
 
 
+## Autoevaluacion ##
+
+Nota: 3
+
+Actividad 01: expliqué claramente la idea del poroyecto mostrando su grafica y dando de manera detallada las ideas y los referentes visuales que se usarian
+
+Actividad 02: me falto la aplicacion
